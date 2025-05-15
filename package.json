@@ -1,11 +1,11 @@
 {
-  "name": "electronapp",
+  "name": "electroninstagram",
   "version": "1.0.0",
-  "description": "Electron App",
+  "description": "Instagram Desktop Electron-based",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "package": "electron-packager . ElectronApp --platform=win32 --arch=x64 --icon=favicon.ico --out=dist --overwrite",
+    "package": "electron-packager . ElectronInstagram --platform=win32 --arch=x64 --icon=favicon.ico --out=dist --overwrite",
     "build": "electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
