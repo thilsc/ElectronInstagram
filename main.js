@@ -1,6 +1,7 @@
 const { app, BrowserWindow, Tray, Menu } = require('electron/main')
 const path = require('path')
 const fs = require('fs')
+const keytar = require('keytar')
 
 let tray = null
 let win = null
@@ -10,15 +11,32 @@ const createWindow = () => {
     title: 'Electron App',
     width: 800,
     height: 600,
-    resizable: false, // Impede o redimensionamento
-    maximizable: false, // Impede a maximização
+    resizable: true, //false, // Impede o redimensionamento
+    maximizable: true, //false, // Impede a maximização
     icon: path.join(__dirname, 'favicon.ico') // Define o ícone da janela
   })
 
-  win.loadFile('index.html') //ou win.loadURL('https://...')
+  win.loadURL('https://www.instagram.com/') // Carrega a URL desejada
+  win.webContents.on('did-finish-load', () => {
+    // Define o título da janela como o título da página carregada
+    win.setTitle(win.getTitle())
+  })
+  win.webContents.on('did-navigate', (event, url) => {
+    // Define o título da janela como o título da página carregada
+    win.setTitle(win.getTitle())
+  }
+  )
+  win.webContents.on('did-navigate-in-page', (event, url) => {
+    // Define o título da janela como o título da página carregada
+    win.setTitle(win.getTitle())
+  })
+  win.webContents.on('page-title-updated', (event, title) => {
+    // Define o título da janela como o título da página carregada
+    win.setTitle(title)
+  })  
   win.setMenu(null) // Remove o menu padrão
   win.setAlwaysOnTop(true) // Mantém a janela sempre no topo  
-  win.setSkipTaskbar(true) // Remove a janela da barra de tarefas
+  //win.setSkipTaskbar(true) // Remove a janela da barra de tarefas
   win.setVisibleOnAllWorkspaces(true) // Torna a janela visível em todas as áreas de trabalho
 
   // Evento para minimizar a janela na bandeja
@@ -58,3 +76,12 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+// Para salvar uma credencial
+//await keytar.setPassword('ElectronInstagram', 'usuario', 'senhaSuperSecreta')
+
+// Para recuperar uma credencial
+//const senha = await keytar.getPassword('ElectronInstagram', 'usuario')
+
+// Para deletar uma credencial
+//await keytar.deletePassword('ElectronInstagram', 'usuario')

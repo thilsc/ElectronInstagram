@@ -1,5 +1,12 @@
 directories:
   output: dist
   buildResources: build
+appId: com.thilsc.electroninstagram
+productName: ElectronInstagram
+linux:
+  target:
+    - AppImage
+    - deb
+  icon: favicon.ico
 files: []
-electronVersion: 36.2.0
+electronVersion: 23.3.13
